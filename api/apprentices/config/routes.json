@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/apprentices",
+      "handler": "apprentices.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/apprentices/count",
+      "handler": "apprentices.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/apprentices/:id/today-slp",
+      "handler": "apprentices.todaySLP",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/apprentices/:id",
+      "handler": "apprentices.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/apprentices",
+      "handler": "apprentices.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/apprentices/:id",
+      "handler": "apprentices.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/apprentices/:id",
+      "handler": "apprentices.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

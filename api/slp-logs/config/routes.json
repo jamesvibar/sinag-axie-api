@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/slp-logs",
+      "handler": "slp-logs.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/slp-logs/count",
+      "handler": "slp-logs.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/slp-logs/:id",
+      "handler": "slp-logs.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/slp-logs",
+      "handler": "slp-logs.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/slp-logs/:id",
+      "handler": "slp-logs.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/slp-logs/:id",
+      "handler": "slp-logs.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "daily_slp",
+  "info": {
+    "name": "Daily SLP",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "beginningSLP": {
+      "type": "integer",
+      "default": 0
+    },
+    "endSLP": {
+      "type": "integer",
+      "default": 0
+    },
+    "apprentice": {
+      "via": "daily_slps",
+      "model": "apprentices"
+    }
+  }
+}

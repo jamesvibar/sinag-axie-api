@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "apprentices",
+  "info": {
+    "name": "apprentices",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ronin_id": {
+      "type": "uid",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "note": {
+      "type": "text"
+    },
+    "scholar_share": {
+      "type": "decimal",
+      "required": false,
+      "default": 0,
+      "max": 1
+    },
+    "manager_share": {
+      "type": "decimal",
+      "default": 0,
+      "max": 1
+    },
+    "slp_quota": {
+      "type": "integer",
+      "default": 0
+    },
+    "manager": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "apprentices"
+    },
+    "daily_slps": {
+      "collection": "slp-logs",
+      "via": "apprentice"
+    },
+    "slp": {
+      "type": "json"
+    },
+    "pvp": {
+      "type": "json"
+    },
+    "today_slp": {
+      "model": "slp-logs"
+    },
+    "yesterday_slp": {
+      "model": "slp-logs"
+    }
+  }
+}
