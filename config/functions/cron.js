@@ -12,10 +12,30 @@
 
 module.exports = {
   /**
-   * Simple example.
-   * Every monday at 1am.
+   * Update slp data every 5 minutes. (slp data is only updated every 3 hrs on axie apis)
    */
-  "*/1 * * * *": () => {
-    console.log("Update apprentices total SLPs!");
+  "*/5 * * * *": async () => {
+    // Get updated slp data of apprentices/scholars from axie api
+    const { data } = await strapi.config.functions.slp();
+
+    if (data) {
+      const bulkWriteQuery = data.map((slpData) => ({
+        updateOne: {
+          filter: { ronin_id: slpData.client_id },
+          update: { slp: slpData },
+        },
+      }));
+
+      const response = await strapi
+        .query("apprentices")
+        .model.bulkWrite(bulkWriteQuery);
+      if (response && response?.result.ok) {
+        console.log(`Successfully synced up SLP Data (${Date.now()})`);
+      } else {
+        throw new Error(
+          "An error has occured while trying to sync apprentices' slp"
+        );
+      }
+    }
   },
 };
