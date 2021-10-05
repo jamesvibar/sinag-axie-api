@@ -12,11 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "beginningSLP": {
+    "beginning_slp": {
       "type": "integer",
       "default": 0
     },
-    "endSLP": {
+    "end_slp": {
       "type": "integer",
       "default": 0
     },

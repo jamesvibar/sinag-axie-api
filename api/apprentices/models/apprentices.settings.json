@@ -44,8 +44,8 @@
       "via": "apprentices"
     },
     "daily_slps": {
-      "collection": "slp-logs",
-      "via": "apprentice"
+      "via": "apprentice",
+      "collection": "slp-logs"
     },
     "slp": {
       "type": "json"
@@ -58,6 +58,9 @@
     },
     "yesterday_slp": {
       "model": "slp-logs"
+    },
+    "axie_updated_at": {
+      "type": "biginteger"
     }
   }
 }

@@ -35,6 +35,7 @@ module.exports = {
         const slpData = responseSLP.data[0];
         data["slp"] = slpData;
         data["pvp"] = mmrData;
+        data["axie_updated_at"] = responseSLP.data[0].update_time;
       } catch (err) {
         if (err) {
           console.error(err);

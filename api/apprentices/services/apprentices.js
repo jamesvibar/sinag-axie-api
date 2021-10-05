@@ -12,12 +12,6 @@ module.exports = {
       .query("apprentices")
       .find(params, ["-daily_slps", "today_slp", "yesterday_slp", ...populate]);
 
-    // const roninIds = documents.map(({ _id, roninId }) => ({ _id, roninId }));
-
-    // this.getTodaySLPs(roninIds);
-
-    // console.log(roninIds);
-
     return documents;
   },
 
