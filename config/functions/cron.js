@@ -20,14 +20,14 @@ module.exports = {
       const responses = await strapi.config.functions.slp();
 
       if (!responses) {
-        console.log("There are no outdated apprentices to sync yet.");
+        console.log("There are no outdated accounts to sync yet.");
         return;
       }
 
       if (responses) {
         const { slp, mmr } = responses;
 
-        // Sync apprentice data
+        // Sync account data
         let bulkWriteQuery = slp.map((slpData) => ({
           updateOne: {
             filter: { ronin_id: slpData.client_id },
@@ -49,13 +49,13 @@ module.exports = {
         });
 
         const response = await strapi
-          .query("apprentices")
+          .query("accounts")
           .model.bulkWrite(bulkWriteQuery);
         if (response && response?.result.ok) {
           console.log(`Successfully synced up SLP Data on (${Date.now()})`);
         } else {
           throw new Error(
-            "An error has occured while trying to sync apprentices' slp"
+            "An error has occured while trying to sync account's slp"
           );
         }
       }

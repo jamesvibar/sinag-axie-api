@@ -20,9 +20,9 @@
       "type": "integer",
       "default": 0
     },
-    "apprentice": {
+    "account": {
       "via": "daily_slps",
-      "model": "apprentices"
+      "model": "accounts"
     }
   }
 }

@@ -5,4 +5,12 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+  async todaySLP(ctx) {
+
+
+    // create a service for fetching SLP
+
+    return ctx.send('Hello world')
+  }
+};

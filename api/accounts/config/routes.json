@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/accounts",
+      "handler": "accounts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/count",
+      "handler": "accounts.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/:id/today-slp",
+      "handler": "accounts.todaySLP",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/:id",
+      "handler": "accounts.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/accounts",
+      "handler": "accounts.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/accounts/:id",
+      "handler": "accounts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/accounts/:id",
+      "handler": "accounts.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

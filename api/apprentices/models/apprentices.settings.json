@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "apprentices",
   "info": {
-    "name": "apprentices",
+    "name": "Apprentices",
     "description": ""
   },
   "options": {
@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "ronin_id": {
-      "type": "uid",
-      "required": true
-    },
     "name": {
       "type": "string",
       "required": true
@@ -23,44 +19,30 @@
     "note": {
       "type": "text"
     },
-    "scholar_share": {
+    "apprentice_share": {
       "type": "decimal",
-      "required": false,
-      "default": 0,
-      "max": 1
+      "default": 0.5,
+      "max": 1,
+      "min": 0
     },
     "manager_share": {
       "type": "decimal",
-      "default": 0,
-      "max": 1
+      "max": 1,
+      "min": 0,
+      "default": 0.5
     },
     "slp_quota": {
       "type": "integer",
-      "default": 0
+      "default": 100
+    },
+    "account": {
+      "via": "apprentices",
+      "model": "accounts"
     },
     "manager": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "apprentices"
-    },
-    "daily_slps": {
-      "via": "apprentice",
-      "collection": "slp-logs"
-    },
-    "slp": {
-      "type": "json"
-    },
-    "pvp": {
-      "type": "json"
-    },
-    "today_slp": {
-      "model": "slp-logs"
-    },
-    "yesterday_slp": {
-      "model": "slp-logs"
-    },
-    "axie_updated_at": {
-      "type": "biginteger"
     }
   }
 }

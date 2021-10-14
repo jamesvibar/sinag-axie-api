@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accounts",
+  "info": {
+    "name": "accounts",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ronin_id": {
+      "type": "uid",
+      "required": true
+    },
+    "slp": {
+      "type": "json"
+    },
+    "pvp": {
+      "type": "json"
+    },
+    "today_slp": {
+      "model": "slp-logs"
+    },
+    "yesterday_slp": {
+      "model": "slp-logs"
+    },
+    "axie_updated_at": {
+      "type": "biginteger"
+    },
+    "daily_slps": {
+      "via": "account",
+      "collection": "slp-logs"
+    },
+    "apprentices": {
+      "via": "account",
+      "collection": "apprentices"
+    }
+  }
+}

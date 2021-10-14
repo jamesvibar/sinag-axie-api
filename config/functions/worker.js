@@ -17,16 +17,16 @@ async function worker(apprenticeId) {
     },
   });
 
-  const apprentice = await strapi.query("apprentices").model.findOne({
+  const account = await strapi.query("accounts").model.findOne({
     _id: apprenticeId,
   });
 
-  if (!apprentice) {
+  if (!account) {
     return "Cannot find apprentice with id: " + apprenticeId;
   }
 
   let currentInGameSLP =
-    apprentice.slp.total - apprentice.slp.blockchain_related.balance;
+    account.slp.total - account.slp.blockchain_related.balance;
   if (yesterdayLog) {
     await strapi.query("slp-logs").update(
       {
@@ -41,13 +41,13 @@ async function worker(apprenticeId) {
   // create daily slp log for the day
   const createdLog = await strapi.query("slp-logs").create({
     beginning_slp: currentInGameSLP,
-    apprentice: apprentice._id,
+    apprentice: account._id,
   });
 
   // update our apprentice's data
-  await strapi.query("apprentices").model.update(
+  await strapi.query("accounts").model.update(
     {
-      _id: apprentice._id,
+      _id: account._id,
     },
     {
       today_slp: createdLog._id,
@@ -59,9 +59,9 @@ async function worker(apprenticeId) {
 }
 
 async function run() {
-  const apprentices = await strapi.query("apprentices").find();
-  for (const apprentice of apprentices) {
-    const result = await queue.push(apprentice._id);
+  const accounts = await strapi.query("accounts").find();
+  for (const account of accounts) {
+    const result = await queue.push(account._id);
     console.log(result);
   }
 }

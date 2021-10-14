@@ -8,14 +8,12 @@ module.exports = async () => {
   const threeHours = 1000 * 60 * 60 * 3;
   const updateTime = currentTime - threeHours;
 
-  const apprentices = await strapi.query("apprentices").find({
+  const accounts = await strapi.query("accounts").find({
     axie_updated_at_lte: updateTime,
   });
 
-  if (apprentices.length > 0) {
-    const roninIds = apprentices
-      .map((apprentice) => apprentice.ronin_id)
-      .join(",");
+  if (accounts.length > 0) {
+    const roninIds = accounts.map((account) => account.ronin_id).join(",");
 
     const [slpResponse, mmrResponse] = await Promise.all([
       axios.get(`${AXIE_GAME_API}/slp/${roninIds}`),
