@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/slp-logs/run-daily-slp",
+      "handler": "slp-logs.runDailySLP",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/slp-logs/manager/:id",
       "handler": "slp-logs.findSlpLogsOfManager",
       "config": {

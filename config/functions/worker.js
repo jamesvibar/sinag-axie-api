@@ -1,6 +1,6 @@
 const queue = require("fastq").promise(worker, 1);
 
-async function worker(apprenticeId) {
+async function worker(accountId) {
   // Get yesterday's daily slp.
   const yesterday = new Date(); // date is in ISO
   yesterday.setDate(yesterday.getDate() - 1);
@@ -10,7 +10,7 @@ async function worker(apprenticeId) {
   yesterdayEnd.setHours(23, 59, 59, 999);
 
   const yesterdayLog = await strapi.query("slp-logs").model.findOne({
-    apprentice: apprenticeId,
+    account: accountId,
     createdAt: {
       $gte: yesterdayStart,
       $lt: yesterdayEnd,
@@ -18,11 +18,11 @@ async function worker(apprenticeId) {
   });
 
   const account = await strapi.query("accounts").model.findOne({
-    _id: apprenticeId,
+    _id: accountId,
   });
 
   if (!account) {
-    return "Cannot find apprentice with id: " + apprenticeId;
+    return "Cannot find account with id: " + accountId;
   }
 
   let currentInGameSLP =
@@ -39,9 +39,10 @@ async function worker(apprenticeId) {
   }
 
   // create daily slp log for the day
+  console.log(account)
   const createdLog = await strapi.query("slp-logs").create({
     beginning_slp: currentInGameSLP,
-    apprentice: account._id,
+    account: account._id,
   });
 
   // update our apprentice's data
@@ -55,7 +56,7 @@ async function worker(apprenticeId) {
     }
   );
 
-  return "Run daily slp logs worker for " + apprenticeId;
+  return "Run daily slp logs worker for " + accountId;
 }
 
 async function run() {
