@@ -46,9 +46,6 @@ module.exports = {
         },
       },
       {
-        $limit: limit,
-      },
-      {
         $lookup: {
           from: "apprentices",
           let: { account: "$account" },
@@ -118,6 +115,9 @@ module.exports = {
             $sum: "$apprentice_slp",
           },
         },
+      },
+      {
+        $limit: limit,
       },
       {
         $sort: {
