@@ -10,6 +10,8 @@ module.exports = {
   async find(params, populate) {
     const account = params?.account;
 
+    const limit = params?.limit ? parseInt(params.limit) : 100;
+
     if (account) {
       const logs = await strapi.query("slp-logs").model.aggregate([
         {
@@ -17,6 +19,9 @@ module.exports = {
             account: ObjectId(account),
             end_slp: { $gt: 0 },
           },
+        },
+        {
+          $limit: limit,
         },
         {
           $lookup: {
@@ -57,10 +62,10 @@ module.exports = {
           $project: {
             today_slp: "$today_slp",
             manager_slp: {
-              $multiply: ["$today_slp", "$manager_share"],
+              $round: [{ $multiply: ["$today_slp", "$manager_share"] }, 1],
             },
             apprentice_slp: {
-              $multiply: ["$today_slp", "$apprentice_share"],
+              $round: [{ $multiply: ["$today_slp", "$apprentice_share"] }, 1],
             },
             createdAt: "$createdAt",
           },

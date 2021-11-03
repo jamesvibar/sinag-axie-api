@@ -42,7 +42,7 @@ module.exports = {
             (mmrData) => mmrData.items[1].client_id === client_id
           );
           if (mmrData) {
-            writeQuery["updateOne"]["update"]["mmr"] = mmrData.items[1];
+            writeQuery["updateOne"]["update"]["pvp"] = mmrData.items[1];
           }
 
           return writeQuery;

@@ -9,6 +9,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 module.exports = {
   async findSlpLogsOfManager(ctx) {
     const { id: managerId } = ctx.params;
+    const limit = ctx.query?.limit ? parseInt(ctx.query.limit) : 100;
 
     if (!managerId) {
       throw strapi.errors.badRequest("Manager ID is required");
@@ -44,6 +45,9 @@ module.exports = {
           account: { $in: accountIds },
           end_slp: { $gt: 0 },
         },
+      },
+      {
+        $limit: limit,
       },
       {
         $lookup: {
@@ -84,10 +88,10 @@ module.exports = {
         $project: {
           today_slp: "$today_slp",
           manager_slp: {
-            $multiply: ["$today_slp", "$manager_share"],
+            $round: [{ $multiply: ["$today_slp", "$manager_share"] }, 1],
           },
           apprentice_slp: {
-            $multiply: ["$today_slp", "$apprentice_share"],
+            $round: [{ $multiply: ["$today_slp", "$apprentice_share"] }, 1],
           },
           createdAt: "$createdAt",
         },
