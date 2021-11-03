@@ -43,7 +43,6 @@ module.exports = {
       {
         $match: {
           account: { $in: accountIds },
-          end_slp: { $gt: 0 },
         },
       },
       {
@@ -78,7 +77,15 @@ module.exports = {
       },
       {
         $project: {
-          today_slp: { $subtract: ["$end_slp", "$beginning_slp"] },
+          today_slp: {
+            $cond: {
+              if: { $ne: ["$end_slp", 0] },
+              then: {
+                $subtract: ["$end_slp", "$beginning_slp"],
+              },
+              else: 0,
+            },
+          },
           manager_share: "$apprentice.manager_share",
           apprentice_share: "$apprentice.apprentice_share",
           createdAt: "$createdAt",
@@ -118,6 +125,8 @@ module.exports = {
         },
       },
     ]);
+
+    console.log(logs);
 
     return ctx.send(logs);
   },
