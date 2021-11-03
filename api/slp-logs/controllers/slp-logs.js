@@ -126,8 +126,6 @@ module.exports = {
       },
     ]);
 
-    console.log(logs);
-
     return ctx.send(logs);
   },
   async runDailySLP(ctx) {
