@@ -29,9 +29,11 @@ module.exports = {
       return ctx.send([]);
     }
 
-    const accountIds = apprentices.map((apprentice) =>
+    // make sure that we have no account duplicates.
+    let accountIds = new Set([...apprentices.map((apprentice) =>
       ObjectId(apprentice.account)
-    );
+    )])
+    accountIds = Array.from(accountIds)
 
     const ratios = apprentices.map((apprentice) => ({
       id: apprentice._id,

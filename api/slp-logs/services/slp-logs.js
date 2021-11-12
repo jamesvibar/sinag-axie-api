@@ -36,6 +36,9 @@ module.exports = {
                 },
               },
               {
+                $limit: 1,
+              },
+              {
                 $project: {
                   manager_share: "$manager_share",
                   apprentice_share: "$apprentice_share",
