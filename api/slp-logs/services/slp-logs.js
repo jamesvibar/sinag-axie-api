@@ -17,7 +17,6 @@ module.exports = {
         {
           $match: {
             account: ObjectId(account),
-            end_slp: { $gt: 0 },
           },
         },
         {
@@ -55,7 +54,15 @@ module.exports = {
         },
         {
           $project: {
-            today_slp: { $subtract: ["$end_slp", "$beginning_slp"] },
+            today_slp: {
+              $cond: {
+                if: { $lt: ["$end_slp", "$beginning_slp"] },
+                then: 0,
+                else: {
+                  $subtract: ["$end_slp", "$beginning_slp"],
+                },
+              },
+            },
             manager_share: "$apprentice.manager_share",
             apprentice_share: "$apprentice.apprentice_share",
             createdAt: "$createdAt",

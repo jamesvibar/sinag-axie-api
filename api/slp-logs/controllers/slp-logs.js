@@ -30,10 +30,10 @@ module.exports = {
     }
 
     // make sure that we have no account duplicates.
-    let accountIds = new Set([...apprentices.map((apprentice) =>
-      ObjectId(apprentice.account)
-    )])
-    accountIds = Array.from(accountIds)
+    let accountIds = new Set([
+      ...apprentices.map((apprentice) => ObjectId(apprentice.account)),
+    ]);
+    accountIds = Array.from(accountIds);
 
     const ratios = apprentices.map((apprentice) => ({
       id: apprentice._id,
@@ -78,11 +78,11 @@ module.exports = {
         $project: {
           today_slp: {
             $cond: {
-              if: { $ne: ["$end_slp", 0] },
-              then: {
+              if: { $lt: ["$end_slp", "$beginning_slp"] },
+              then: 0,
+              else: {
                 $subtract: ["$end_slp", "$beginning_slp"],
               },
-              else: 0,
             },
           },
           manager_share: "$apprentice.manager_share",
