@@ -72,10 +72,10 @@ module.exports = {
           $project: {
             today_slp: "$today_slp",
             manager_slp: {
-              $round: [{ $multiply: ["$today_slp", "$manager_share"] }, 1],
+              $multiply: ["$today_slp", "$manager_share"],
             },
             apprentice_slp: {
-              $round: [{ $multiply: ["$today_slp", "$apprentice_share"] }, 1],
+              $multiply: ["$today_slp", "$apprentice_share"],
             },
             createdAt: "$createdAt",
           },
@@ -89,10 +89,14 @@ module.exports = {
               $sum: "$today_slp",
             },
             manager_slp: {
-              $sum: "$manager_slp",
+              $sum: {
+                $round: ["$manager_slp", 1],
+              },
             },
             apprentice_slp: {
-              $sum: "$apprentice_slp",
+              $sum: {
+                $round: ["$apprentice_slp", 1],
+              },
             },
           },
         },
