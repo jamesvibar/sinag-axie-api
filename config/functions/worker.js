@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const queue = require("fastq").promise(worker, 1);
 
 async function worker(accountId) {
@@ -26,7 +28,21 @@ async function worker(accountId) {
   }
 
   let currentInGameSLP =
-    account.slp.total - account.slp.blockchain_related.balance;
+    account.slp.total - account.slp.blockchain_related.balance; //cached slp
+  try {
+    const response = await axios.get(
+      `https://game-api.skymavis.com/game-api/clients/${account.ronin_id}/items/1`
+    ); // fetch updated slp
+
+    if (!response.data.success) return;
+
+    const liveInGameSLP = response.data;
+    currentInGameSLP =
+      liveInGameSLP.total - liveInGameSLP.blockchain_related.balance;
+  } catch (err) {
+    console.error(err);
+  }
+
   if (yesterdayLog) {
     await strapi.query("slp-logs").update(
       {
@@ -39,7 +55,6 @@ async function worker(accountId) {
   }
 
   // create daily slp log for the day
-  console.log(account)
   const createdLog = await strapi.query("slp-logs").create({
     beginning_slp: currentInGameSLP,
     account: account._id,
