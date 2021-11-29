@@ -135,7 +135,7 @@ module.exports = {
     return ctx.send(logs);
   },
   async runDailySLP(ctx) {
-    strapi.config.functions.worker.run();
+    console.log(ctx.state);
 
     return ctx.send("Hello world");
   },

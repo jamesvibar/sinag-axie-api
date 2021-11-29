@@ -20,9 +20,6 @@ module.exports = {
           },
         },
         {
-          $limit: limit,
-        },
-        {
           $lookup: {
             from: "apprentices",
             let: { account: "$account" },
@@ -99,6 +96,9 @@ module.exports = {
               },
             },
           },
+        },
+        {
+          $limit: limit,
         },
         {
           $sort: {
