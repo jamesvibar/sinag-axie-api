@@ -123,6 +123,11 @@ module.exports = {
         },
       },
       {
+        $sort: {
+          _id: -1,
+        },
+      },
+      {
         $limit: limit,
       },
       {
@@ -135,8 +140,20 @@ module.exports = {
     return ctx.send(logs);
   },
   async runDailySLP(ctx) {
-    console.log(ctx.state);
+    const user = await strapi.query("user", "users-permissions").findOne({
+      email: "jammm.vib@gmail.com",
+    });
 
-    return ctx.send("Hello world");
+    try {
+      await strapi.plugins[
+        "users-permissions"
+      ].services.user.sendConfirmationEmail(user);
+      ctx.send({
+        email: user.email,
+        sent: true,
+      });
+    } catch (err) {
+      return ctx.badRequest(null, err);
+    }
   },
 };
