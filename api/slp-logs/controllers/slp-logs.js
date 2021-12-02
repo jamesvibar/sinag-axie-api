@@ -37,6 +37,8 @@ module.exports = {
     ]);
     accountIds = Array.from(accountIds);
 
+    console.log(accountIds);
+
     const ratios = apprentices.map((apprentice) => ({
       id: apprentice._id,
       manager_ratio: apprentice.manager_share,
@@ -57,7 +59,10 @@ module.exports = {
             {
               $match: {
                 $expr: {
-                  $eq: ["$account", "$$account"],
+                  $and: [
+                    { $eq: ["$account", "$$account"] },
+                    { $eq: ["$manager", ObjectId(managerId)] },
+                  ],
                 },
               },
             },
