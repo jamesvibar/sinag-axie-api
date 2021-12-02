@@ -1,5 +1,7 @@
 "use strict";
 const ObjectId = require("mongoose").Types.ObjectId;
+const axios = require("axios");
+const format = require("date-fns/format");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -140,20 +142,6 @@ module.exports = {
     return ctx.send(logs);
   },
   async runDailySLP(ctx) {
-    const user = await strapi.query("user", "users-permissions").findOne({
-      email: "jammm.vib@gmail.com",
-    });
-
-    try {
-      await strapi.plugins[
-        "users-permissions"
-      ].services.user.sendConfirmationEmail(user);
-      ctx.send({
-        email: user.email,
-        sent: true,
-      });
-    } catch (err) {
-      return ctx.badRequest(null, err);
-    }
+    strapi.config.functions.worker.run();
   },
 };

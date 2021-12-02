@@ -40,9 +40,9 @@
       "model": "accounts"
     },
     "manager": {
+      "via": "apprentices",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "apprentices"
+      "model": "user"
     }
   }
 }

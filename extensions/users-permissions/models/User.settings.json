@@ -66,6 +66,10 @@
     "apprentices": {
       "via": "manager",
       "collection": "apprentices"
+    },
+    "endOfDayReports": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
