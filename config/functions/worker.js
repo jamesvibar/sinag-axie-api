@@ -271,11 +271,11 @@ async function worker(accountId) {
 }
 
 async function run() {
-  // const accounts = await strapi.query("accounts").find();
-  // for (const account of accounts) {
-  //   const result = await queue.push(account._id);
-  //   console.log(result);
-  // }
+  const accounts = await strapi.query("accounts").find();
+  for (const account of accounts) {
+    const result = await queue.push(account._id);
+    console.log(result);
+  }
   console.log("done running daily slp worker!");
 
   const managers = await strapi.query("user", "users-permissions").find({
