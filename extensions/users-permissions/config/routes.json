@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/auth/change-password",
+      "handler": "Auth.changePassword",
+      "config": {
+        "description": "Change user password"
+      }
+    }
+  ]
+}
